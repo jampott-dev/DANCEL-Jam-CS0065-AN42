@@ -12,7 +12,7 @@ This submission implements K-Means study-group formation and compares it with Wa
 - `study_group_clustering.ipynb` — Colab-ready notebook with the Streamlit launcher.
 - `streamlit_app.py` — blue/light-blue interface with validation, master list, default mode, and selected-attribute mode.
 - `comparison_table.csv` and `comparison_chart.svg` — Part 6 algorithm comparison.
-- `reflection.md` — testing, critical-thinking answers, interpretation, and limitations.
+
 
 
 ## Two grouping modes
