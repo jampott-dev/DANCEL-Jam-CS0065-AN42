@@ -2,8 +2,11 @@
 
 ## Group Members:
 Dancel, Jamella Tracy L.
+
 Dolor, Jacob Mikhail B.
+
 Jarilla, Karl Gabriel
+
 Paulino, Armand George B.
 
 This submission implements K-Means study-group formation and compares it with Ward Hierarchical Clustering.
