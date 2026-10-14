@@ -1,0 +1,77 @@
+{
+  "workflow_name": "Study Group Formation",
+  "status": "ready-to-build in KNIME; mirrors the Streamlit matching logic",
+  "nodes": [
+    {
+      "type": "CSV Reader",
+      "file": "study_group_students.csv"
+    },
+    {
+      "type": "Column Filter",
+      "model_features": [
+        "programming",
+        "design",
+        "communication",
+        "analytics",
+        "availability_hours",
+        "preferred_group_size"
+      ],
+      "display_only": [
+        "student_id",
+        "display_name",
+        "interest_tags"
+      ]
+    },
+    {
+      "type": "Missing Value",
+      "numeric": "mean"
+    },
+    {
+      "type": "Normalizer",
+      "method": "z-score"
+    },
+    {
+      "type": "k-Means",
+      "k": "floor(eligible_rows / requested_group_size)",
+      "seed": 42,
+      "purpose": "profile analysis and distance information"
+    },
+    {
+      "type": "Row Filter / Rule Engine",
+      "selected_attributes": "flow-variable controlled",
+      "formula": "keep only selected attributes within tolerance; preferred_group_size is exact when selected",
+      "notes": "No selected attribute means default K-Means grouping uses every student. When attributes are selected, non-matching students are never added to a group."
+    },
+    {
+      "type": "Balanced Group Assignment",
+      "capacity": "requested_group_size",
+      "source": "matching rows only"
+    },
+    {
+      "type": "Rank",
+      "column": "rank"
+    },
+    {
+      "type": "Math Formula",
+      "new_column": "formed_group",
+      "formula": "floor((rank - 1) / requested_group_size) + 1"
+    },
+    {
+      "type": "Group Loop",
+      "group_column": "formed_group",
+      "require_complete_groups": true
+    },
+    {
+      "type": "Hierarchical Clustering",
+      "linkage": "Ward",
+      "distance": "Euclidean",
+      "purpose": "comparison branch"
+    },
+    {
+      "type": "Scatter Plot",
+      "x": "programming",
+      "y": "design",
+      "color": "cluster"
+    }
+  ]
+}
