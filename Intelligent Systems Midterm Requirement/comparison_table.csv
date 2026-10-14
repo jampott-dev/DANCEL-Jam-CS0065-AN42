@@ -1,0 +1,3 @@
+method,silhouette_score,interpretation
+K-Means,0.476,"Primary method; stronger separation in the observed run"
+Hierarchical Ward,0.460,"Comparison method; slightly lower separation in the observed run"
